@@ -70,3 +70,48 @@ Formas de usar os operadores `match`:
 
 )
 ```
+
+## Pipes
+
+```js
+import {pipes} from 'more-sugar'
+
+// Ao invés de
+function render() {
+    function step1(result) {
+        // ...
+        step2(result)
+    }
+
+    function step2(result) {
+        // ...
+        step3(result)
+    }
+
+    function step3(result) {
+        // ...
+        finish()
+    }
+
+    lib.getData(step1)
+}
+
+// Use
+function render() {
+    let chain = pipes()
+        ['|>']((result) => {
+            // step1 ...
+            ok(result)
+        })
+        ['|>']((result) => {
+            // step2 ...
+            ok(result)
+        })
+        ['|>']((result) => {
+            // step3 ...
+            ok(result)
+        })
+
+    lib.getData(chain)
+}
+```
